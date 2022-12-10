@@ -17,8 +17,8 @@ public class FirstSession {
     static JButton jButton;
     public static void main(String[] args) {
         frame=new JFrame("First Session");
-        frame.setLayout(null);
-        frame.setBounds(200,100,400,400);
+        frame.setLayout(null); // isne sbse phele to pura size zero krdiya frame ka 
+        frame.setBounds(200,100,400,400); // fir isne hmare according size de diya frame ko
 
         textArea=new JTextArea("First TextArea");
         textArea.setBounds(300,300,50,50);
