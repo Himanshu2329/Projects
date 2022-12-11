@@ -45,7 +45,9 @@ public class FirstSession implements Action {
         jMenuBar=new JMenuBar();
         jMenu=new JMenu("open");
         jMenuItem=new JMenuItem("first option");
+        jMenuItem.addActionListener(this);
         jMenuItem2=new JMenuItem("Second option");
+        jMenuItem2.addActionListener(this);
 
         jMenu.add(jMenuItem);
         jMenu.add(jMenuItem2);
@@ -76,6 +78,12 @@ public class FirstSession implements Action {
 
         if(s.equals("Click me")){
             textArea.setText("You've clicked the button");
+        }
+        else if(s.equals("first option")){
+            textArea.setText("you click first option");
+        }
+        else if(s.equals("Second option")){
+            textArea.setText("you click second option");
         }
         
     }
