@@ -1,6 +1,11 @@
 package Notepad;
+import java.awt.event.ActionEvent;
+import java.awt.print.PrinterException;
+import java.beans.PropertyChangeListener;
+
+import javax.management.RuntimeErrorException;
 import javax.swing.*;
-public class SimpleTextEditor {
+public class SimpleTextEditor implements Action{
     JFrame frame;
     JTextArea jTextArea;
     JMenuBar jMenuBar;
@@ -28,9 +33,13 @@ public class SimpleTextEditor {
 
         // for file option
         NewFile=new JMenuItem("New File");
+        NewFile.addActionListener(this);
         OpenFile=new JMenuItem("Open");
+        OpenFile.addActionListener(this);
         SaveFile=new JMenuItem("Save");
+        SaveFile.addActionListener(this);
         PrintFile=new JMenuItem("Print");
+        PrintFile.addActionListener(this);
 
         File.add(NewFile);
         File.add(OpenFile);
@@ -40,8 +49,11 @@ public class SimpleTextEditor {
         // for edit option
 
         Cut=new JMenuItem("Cut");
+        Cut.addActionListener(this);
         Copy=new JMenuItem("Copy");
+        Copy.addActionListener(this);
         Paste=new JMenuItem("Paste");
+        Paste.addActionListener(this);
 
         Edit.add(Cut);
         Edit.add(Copy);
@@ -50,6 +62,7 @@ public class SimpleTextEditor {
         // for close button
 
         CloseIt = new JMenuItem("Close Editor");
+        CloseIt.addActionListener(this);
 
         Close.add(CloseIt);
 
@@ -62,5 +75,70 @@ public class SimpleTextEditor {
     }
     public static void main(String[] args) {
         SimpleTextEditor editor=new SimpleTextEditor();
+    }
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        // TODO Auto-generated method stub
+
+        String s=e.getActionCommand();
+
+        if(s.equals("Cut")){
+            jTextArea.cut();
+        }else if(s.equals("Copy")){
+            jTextArea.copy();
+            
+        }
+        else if(s.equals("Paste")){
+            jTextArea.paste();
+        }
+        else if(s.equals("Print")){
+            try {
+                jTextArea.print();
+            } catch (PrinterException e1) {
+                // TODO Auto-generated catch block
+                e1.printStackTrace();
+            }
+        }
+        else if(s.equals("New File")){
+            jTextArea.setText("");
+        }
+        else if(s.equals("Close Editor")){
+            // frame.setVisible(false); 
+            //  or
+            System.exit(0);
+        }
+
+
+        
+    }
+    @Override
+    public Object getValue(String key) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+    @Override
+    public void putValue(String key, Object value) {
+        // TODO Auto-generated method stub
+        
+    }
+    @Override
+    public void setEnabled(boolean b) {
+        // TODO Auto-generated method stub
+        
+    }
+    @Override
+    public boolean isEnabled() {
+        // TODO Auto-generated method stub
+        return false;
+    }
+    @Override
+    public void addPropertyChangeListener(PropertyChangeListener listener) {
+        // TODO Auto-generated method stub
+        
+    }
+    @Override
+    public void removePropertyChangeListener(PropertyChangeListener listener) {
+        // TODO Auto-generated method stub
+        
     }
 }
