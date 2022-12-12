@@ -1,10 +1,15 @@
 package Notepad;
+
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.print.PrinterException;
 import java.beans.PropertyChangeListener;
-
-import javax.management.RuntimeErrorException;
-import javax.swing.*;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 public class SimpleTextEditor implements Action{
     JFrame frame;
     JTextArea jTextArea;
@@ -75,6 +80,7 @@ public class SimpleTextEditor implements Action{
     }
     public static void main(String[] args) {
         SimpleTextEditor editor=new SimpleTextEditor();
+        // File file=new File();
     }
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -107,6 +113,46 @@ public class SimpleTextEditor implements Action{
             //  or
             System.exit(0);
         }
+        else if(s.equals("Open")){
+            JFileChooser jFileChooser=new JFileChooser("C:");
+
+            int ans= jFileChooser.showOpenDialog(null);
+
+            if(ans == JFileChooser.APPROVE_OPTION){
+                File file=new File(jFileChooser.getSelectedFile().getAbsolutePath());
+
+                String s1="" ,s2="";
+                try {
+                    BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
+                    s2=bufferedReader.readLine();
+                    while((s1=bufferedReader.readLine())!=null){
+                        s2+=s1+"\n";
+                    }
+                    jTextArea.setText(s2);
+                } catch (FileNotFoundException ex) {
+                    throw new RuntimeException(ex);
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                }
+
+            }
+
+        }
+        else if(s.equals("Save")){
+            JFileChooser jFileChooser=new JFileChooser("c:");
+            int ans=jFileChooser.showOpenDialog(null);
+            if(ans==JFileChooser.APPROVE_OPTION){
+                File file=new File(jFileChooser.getSelectedFile().getAbsolutePath());
+                BufferedWriter writer=null;
+                try {
+                    writer=new BufferedWriter(new FileWriter(file,false));
+                    writer.write((jTextArea.getText()));
+                    writer.flush();
+                    writer.close();
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                }
+            }
 
 
         
